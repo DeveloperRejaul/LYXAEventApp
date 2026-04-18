@@ -58,7 +58,7 @@ npm run ios
 yarn ios
 ```
 
-### Demo screenshotd (IOS)
+### Demo screenshots (IOS)
 <p>
 <img src='screenshots/ios-01.png' height="400"/>
 <img src='screenshots/ios-02.png' height="400"/>
@@ -66,7 +66,7 @@ yarn ios
 </p>
 
 
-### Demo screenshotd (ANDROID)
+### Demo screenshots (ANDROID)
 <p>
 <img src='screenshots/android-01.png' height="400"/>
 <img src='screenshots/android-02.png' height="400"/>
