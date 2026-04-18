@@ -2,9 +2,9 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   TouchableOpacity,
+  Image
 } from 'react-native';
 import { formatDate } from '../utils/date-time';
 import UnFavoriteIcon from '../assets/icons/favorite';
@@ -13,7 +13,8 @@ import { useDispatch } from 'react-redux';
 import { toogleFavorite } from '../../features/favorite/favoriteSlice';
 import FavoriteSolid from '../assets/icons/favorite-solid';
 import { useAppSelector } from '../hooks/redux';
-import { useNavigation } from '@react-navigation/native';
+import Animated, { LinearTransition, FadeOut } from 'react-native-reanimated';
+import { router } from '../utils/router';
 
 interface Props {
   event: Event;
@@ -23,7 +24,6 @@ const EventCard = ({
   event,
 }: Props) => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   const favoriteEvents = useAppSelector((state) => state.favorite);
   const image = event?.images?.[0]?.url;
   const name = event?.name;
@@ -32,48 +32,57 @@ const EventCard = ({
   const city = event?._embedded?.venues?.[0]?.city?.name || '';
   const category = event?.classifications?.[0]?.segment?.name || 'Other';
   const isFavorite = favoriteEvents.some(e => e.id === event.id);
-  return (
-    <TouchableOpacity 
-      style={styles.card} 
-      onPress={()=>{
-        navigation.navigate('details', { event })
-      }}
-    >
-      
-      {/* Image */}
-      <Image
-        source={{ uri: image}}
-        style={styles.image}
-      />
 
-      {/* Favorite Button */}
-      <TouchableOpacity
-        style={styles.favoriteBtn}
+
+
+  
+  return (
+    <Animated.View
+      layout={LinearTransition.springify()}
+      exiting={FadeOut}
+    >
+      <TouchableOpacity 
+        style={styles.card} 
         onPress={()=>{
-          dispatch(toogleFavorite(event))
+          router.navigate('details', {event})
         }}
       >
-        {isFavorite ? <FavoriteSolid size={25}/> : <UnFavoriteIcon size={25}/>}
-      </TouchableOpacity>
+      
+        {/* Image */}
+        <Image
+          source={{ uri: image}}
+          style={styles.image}
+        />
 
-      {/* Info */}
-      <View style={styles.info}>
-        <Text numberOfLines={2} style={styles.title}>
-          {name}
-        </Text>
+        {/* Favorite Button */}
+        <TouchableOpacity
+          style={styles.favoriteBtn}
+          onPress={()=>{
+            dispatch(toogleFavorite(event))
+          }}
+        >
+          {isFavorite ? <FavoriteSolid size={25}/> : <UnFavoriteIcon size={25}/>}
+        </TouchableOpacity>
 
-        <Text style={styles.date}>{date}</Text>
+        {/* Info */}
+        <View style={styles.info}>
+          <Text numberOfLines={2} style={styles.title}>
+            {name}
+          </Text>
 
-        <Text style={styles.venue}>
-          {venue}
-          {city ? `, ${city}` : ''}
-        </Text>
+          <Text style={styles.date}>{date}</Text>
 
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>{category}</Text>
+          <Text style={styles.venue}>
+            {venue}
+            {city ? `, ${city}` : ''}
+          </Text>
+
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>{category}</Text>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </Animated.View>
   );
 };
 

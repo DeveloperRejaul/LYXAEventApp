@@ -37,7 +37,7 @@ export default function RootStack() {
       screenOptions={{
         headerShown: false,
         contentStyle:{
-          paddingTop: top
+          paddingTop: top + 10
         }
       }}
     >

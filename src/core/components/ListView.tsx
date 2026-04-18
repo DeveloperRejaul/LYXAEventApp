@@ -37,6 +37,7 @@ function ListShow(props: IListShowProps) {
   const {data, isLoading, isFetching, refetch, isError} = query1(queryParams);
   const [get, res] = query2();
 
+
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     page = 0;

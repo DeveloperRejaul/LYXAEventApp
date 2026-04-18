@@ -34,7 +34,7 @@ class Query {
   baseQuery = (params:Options)=> async (args:any  /* , api, extraOptions  */)=> {
     /* const { signal, dispatch, getState } = api; */
     const {
-      timeout = 6000,
+      timeout = 30000,
       baseUrl,
     } = params;
 

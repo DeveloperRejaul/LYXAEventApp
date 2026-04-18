@@ -6,6 +6,7 @@ import EventCard from '../../core/components/EventCard'
 import SearchIcon from '../../core/assets/icons/search'
 import { Event } from './type'
 import { debounce } from '../../core/utils/time'
+import { colors } from '@src/core/constants/color'
 
 export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -18,6 +19,7 @@ export default function HomeScreen() {
         <TextInput
           placeholder="Search with city name..."
           style={styles.input}
+          placeholderTextColor={colors.placeholder}
           onChangeText={debounce((text)=>setSearchQuery(text), 500)}
         />
         <TouchableOpacity>
@@ -53,8 +55,9 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    flex: 1, // takes all available space
+    flex: 1, 
     fontSize: 16,
+    color: colors.black
   },
   btn:{
     padding: 10

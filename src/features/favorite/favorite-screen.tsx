@@ -3,6 +3,7 @@ import React from 'react'
 import { useAppSelector } from '../../core/hooks/redux'
 import EventCard from '../../core/components/EventCard';
 
+
 export default function FavoriteScreen() {
   const favoriteEvents = useAppSelector((state) => state.favorite);
   return (
